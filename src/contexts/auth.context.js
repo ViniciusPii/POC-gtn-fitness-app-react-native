@@ -43,8 +43,12 @@ const AuthProvider = ({ children }) => {
       });
   };
 
+  const logout = () => {
+    firebase.auth().signOut();
+  };
+
   return (
-    <AuhtContext.Provider value={{ signed, createAccount }}>
+    <AuhtContext.Provider value={{ signed, createAccount, logout }}>
       {children}
     </AuhtContext.Provider>
   );
@@ -52,8 +56,8 @@ const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuhtContext);
-  const { signed, createAccount } = context;
-  return { signed, createAccount };
+  const { signed, createAccount, logout } = context;
+  return { signed, createAccount, logout };
 };
 
 export default AuthProvider;
