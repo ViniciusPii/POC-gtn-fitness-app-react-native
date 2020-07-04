@@ -8,10 +8,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { useAuth } from '../../../contexts/auth.context';
+
 const CreateAccount = () => {
+  const { createAccount } = useAuth();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleCreateAccount = () => {
+    createAccount(name, email, password);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -74,8 +82,9 @@ const CreateAccount = () => {
             justifyContent: 'center',
             borderRadius: 8,
           }}
+          onPress={handleCreateAccount}
         >
-          <Text style={{ color: '#fff' }}>Login</Text>
+          <Text style={{ color: '#fff', fontSize: 20 }}>Cadastrar</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
