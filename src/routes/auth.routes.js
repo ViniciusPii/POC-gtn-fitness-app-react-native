@@ -9,13 +9,21 @@ const AuthStack = createStackNavigator();
 
 const AuthRoutes = () => {
   return (
-    <AuthStack.Navigator>
+    <AuthStack.Navigator screenOptions={{ gestureEnabled: false }}>
       <AuthStack.Screen
         name="Login"
         component={Login}
         options={{ headerShown: false }}
       />
-      <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
+      <AuthStack.Screen
+        name="CreateAccount"
+        component={CreateAccount}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#222',
+          headerTitleAlign: 'center',
+        }}
+      />
     </AuthStack.Navigator>
   );
 };
