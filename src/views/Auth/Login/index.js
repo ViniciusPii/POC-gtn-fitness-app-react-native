@@ -10,7 +10,7 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 
-import { useAuth } from '../../../contexts/auth.context';
+import { useAuth } from '../../../hooks/useAuth';
 
 const Login = () => {
   const navigation = useNavigation();

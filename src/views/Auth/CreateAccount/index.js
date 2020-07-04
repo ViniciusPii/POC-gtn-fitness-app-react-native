@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import { useAuth } from '../../../contexts/auth.context';
+import { useAuth } from '../../../hooks/useAuth';
 
 const CreateAccount = () => {
   const { createAccount } = useAuth();

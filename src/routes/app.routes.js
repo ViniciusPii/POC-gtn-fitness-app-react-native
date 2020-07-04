@@ -3,7 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { TouchableOpacity, Text } from 'react-native';
-import { useAuth } from '../contexts/auth.context';
+import { useAuth } from '../hooks/useAuth';
 
 import Home from '../views/App/Home';
 
