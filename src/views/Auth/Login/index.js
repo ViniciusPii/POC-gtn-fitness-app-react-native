@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,9 @@ import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
   const navigation = useNavigation();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <KeyboardAvoidingView
@@ -39,6 +42,8 @@ const Login = () => {
           }}
           placeholder="Email"
           autoCapitalize="none"
+          value={email}
+          onChangeText={(t) => setEmail(t)}
         />
         <TextInput
           style={{
@@ -48,6 +53,9 @@ const Login = () => {
           }}
           placeholder="Senha"
           secureTextEntry
+          autoCapitalize="none"
+          value={password}
+          onChangeText={(t) => setPassword(t)}
         />
         <TouchableOpacity
           style={{
