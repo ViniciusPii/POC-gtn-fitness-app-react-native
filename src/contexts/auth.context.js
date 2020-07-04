@@ -47,8 +47,27 @@ const AuthProvider = ({ children }) => {
     firebase.auth().signOut();
   };
 
+  // loga usuário
+  const login = (email, password) => {
+    if (email === '' || password === '') {
+      alert('Preencha todos os campos!');
+
+      return;
+    }
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        alert('Logado com sucesso!');
+      })
+      .catch(() => {
+        alert('Ah não, usuário ou senha incorretos!');
+      });
+  };
+
   return (
-    <AuhtContext.Provider value={{ signed, createAccount, logout }}>
+    <AuhtContext.Provider value={{ signed, createAccount, logout, login }}>
       {children}
     </AuhtContext.Provider>
   );
@@ -56,8 +75,8 @@ const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuhtContext);
-  const { signed, createAccount, logout } = context;
-  return { signed, createAccount, logout };
+  const { signed, createAccount, logout, login } = context;
+  return { signed, createAccount, logout, login };
 };
 
 export default AuthProvider;

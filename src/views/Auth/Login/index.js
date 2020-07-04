@@ -10,11 +10,18 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 
+import { useAuth } from '../../../contexts/auth.context';
+
 const Login = () => {
   const navigation = useNavigation();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    login(email, password);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -67,8 +74,9 @@ const Login = () => {
             justifyContent: 'center',
             borderRadius: 8,
           }}
+          onPress={handleLogin}
         >
-          <Text style={{ color: '#fff' }}>Login</Text>
+          <Text style={{ color: '#fff', fontSize: 20 }}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ marginTop: 30 }}
