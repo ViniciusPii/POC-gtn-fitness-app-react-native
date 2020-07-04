@@ -8,10 +8,13 @@ const AuhtContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [signed, setSigned] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     firebase.auth().onAuthStateChanged((user) => {
       setSigned(!!user);
+      setLoading(false);
     });
   }, []);
 
@@ -69,7 +72,9 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuhtContext.Provider value={{ signed, createAccount, logout, login }}>
+    <AuhtContext.Provider
+      value={{ signed, loading, createAccount, logout, login }}
+    >
       {children}
     </AuhtContext.Provider>
   );
@@ -77,8 +82,8 @@ const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuhtContext);
-  const { signed, createAccount, logout, login } = context;
-  return { signed, createAccount, logout, login };
+  const { signed, createAccount, logout, login, loading } = context;
+  return { signed, createAccount, logout, login, loading };
 };
 
 AuthProvider.propTypes = {
