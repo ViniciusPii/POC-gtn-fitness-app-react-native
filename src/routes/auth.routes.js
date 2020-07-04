@@ -3,6 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from '../views/Auth/Login';
+import CreateAccount from '../views/Auth/CreateAccount';
 
 const AuthStack = createStackNavigator();
 
@@ -14,6 +15,7 @@ const AuthRoutes = () => {
         component={Login}
         options={{ headerShown: false }}
       />
+      <AuthStack.Screen name="CreateAccount" component={CreateAccount} />
     </AuthStack.Navigator>
   );
 };
