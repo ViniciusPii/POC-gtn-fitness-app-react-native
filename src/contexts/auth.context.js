@@ -1,8 +1,8 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
 
 import firebase from '../services/firebase';
 
-export const AuhtContext = createContext();
+const AuhtContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [signed, setSigned] = useState(false);
@@ -16,6 +16,12 @@ const AuthProvider = ({ children }) => {
   return (
     <AuhtContext.Provider value={{ signed }}>{children}</AuhtContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuhtContext);
+  const { signed } = context;
+  return { signed };
 };
 
 export default AuthProvider;

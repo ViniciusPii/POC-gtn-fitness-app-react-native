@@ -2,12 +2,15 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Routes from './routes';
+import AuthProvider from './contexts/auth.context';
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
+    </AuthProvider>
   );
 };
 
