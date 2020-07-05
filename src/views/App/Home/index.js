@@ -7,6 +7,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
+import firebase from '../../../services/firebase';
+
 import { months } from '../../../mocks/months';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
@@ -16,15 +20,11 @@ const Home = () => {
   const today = new Date();
   const MonthRef = useRef();
 
+  const navigation = useNavigation();
+
   const [selectedMounth, setSelectedMounth] = useState(today.getMonth());
-
-  const result = [
-    { peso: 77.7, gordura: 22, pesoGordura: 17, mes: 6 },
-    { peso: 75, gordura: 20, pesoGordura: 15, mes: 6 },
-    { peso: 72, gordura: 22, pesoGordura: 8, mes: 6 },
-  ];
-
-  const newResult = result.filter((value) => value.mes === selectedMounth);
+  const [list, setList] = useState([]);
+  const { uid } = firebase.auth().currentUser;
 
   const handleScrollEnd = (e) => {
     const posX = e.nativeEvent.contentOffset.x;
@@ -43,6 +43,27 @@ const Home = () => {
     }, 1);
   }, [selectedMounth]);
 
+  useEffect(() => {
+    firebase
+      .database()
+      .ref(today.getFullYear())
+      .child(uid)
+      .child(months[selectedMounth])
+      .on('value', (snap) => {
+        setList([]);
+
+        snap.forEach((item) => {
+          const newList = {
+            key: item.key,
+            weight: item.val().weight,
+            fatWeight: item.val().fatWeight,
+            fatPercentage: item.val().fatPercentage,
+          };
+          setList((oldArray) => [...oldArray, newList]);
+        });
+      });
+  }, [selectedMounth]);
+
   return (
     <View style={{ flex: 1 }}>
       <View>
@@ -59,7 +80,7 @@ const Home = () => {
           {months.map((m, k) => (
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
               <TouchableOpacity
-                key={k}
+                key={m}
                 style={{
                   width: thirdW,
                   alignItems: 'center',
@@ -81,7 +102,7 @@ const Home = () => {
           justifyContent: 'center',
         }}
       >
-        {newResult.map((value) => (
+        {list.map((value) => (
           <View
             style={{
               backgroundColor: '#ccc',
@@ -95,19 +116,35 @@ const Home = () => {
             >
               <View>
                 <Text>Peso</Text>
-                <Text>{value.peso}</Text>
+                <Text>{value.weight}</Text>
               </View>
               <View>
                 <Text>% de Gordura</Text>
-                <Text>{value.gordura}</Text>
+                <Text>{value.fatPercentage}</Text>
               </View>
               <View>
                 <Text>Peso em Gordura</Text>
-                <Text>{value.pesoGordura}</Text>
+                <Text>{value.fatWeight}</Text>
               </View>
             </View>
           </View>
         ))}
+        <TouchableOpacity
+          style={{
+            width: 50,
+            height: 50,
+            backgroundColor: '#222',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 25,
+            position: 'absolute',
+            bottom: 25,
+            right: 20,
+          }}
+          onPress={() => navigation.navigate('NewWeight')}
+        >
+          <Text style={{ fontSize: 20, color: '#fff' }}>+</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

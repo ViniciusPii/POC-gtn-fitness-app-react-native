@@ -6,6 +6,7 @@ import { TouchableOpacity, Text } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
 
 import Home from '../views/App/Home';
+import NewWeight from '../views/App/NewWeight';
 
 const AppStack = createStackNavigator();
 
@@ -26,6 +27,15 @@ const AppRoutes = () => {
               <Text>Sair</Text>
             </TouchableOpacity>
           ),
+        }}
+      />
+      <AppStack.Screen
+        name="NewWeight"
+        component={NewWeight}
+        options={{
+          headerBackTitleVisible: false,
+          headerTintColor: '#222',
+          headerTitleAlign: 'center',
         }}
       />
     </AppStack.Navigator>
