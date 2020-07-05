@@ -18,6 +18,14 @@ const Home = () => {
 
   const [selectedMounth, setSelectedMounth] = useState(today.getMonth());
 
+  const result = [
+    { peso: 77.7, gordura: 22, pesoGordura: 17, mes: 6 },
+    { peso: 75, gordura: 20, pesoGordura: 15, mes: 6 },
+    { peso: 72, gordura: 22, pesoGordura: 8, mes: 6 },
+  ];
+
+  const newResult = result.filter((value) => value.mes === selectedMounth);
+
   const handleScrollEnd = (e) => {
     const posX = e.nativeEvent.contentOffset.x;
     const targetMonth = Math.round(posX / thirdW);
@@ -37,7 +45,7 @@ const Home = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{}}>
+      <View>
         <ScrollView
           horizontal
           ref={MonthRef}
@@ -65,6 +73,41 @@ const Home = () => {
             </View>
           ))}
         </ScrollView>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {newResult.map((value) => (
+          <View
+            style={{
+              backgroundColor: '#ccc',
+              width: '80%',
+              padding: 20,
+              marginBottom: 10,
+            }}
+          >
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'space-around' }}
+            >
+              <View>
+                <Text>Peso</Text>
+                <Text>{value.peso}</Text>
+              </View>
+              <View>
+                <Text>% de Gordura</Text>
+                <Text>{value.gordura}</Text>
+              </View>
+              <View>
+                <Text>Peso em Gordura</Text>
+                <Text>{value.pesoGordura}</Text>
+              </View>
+            </View>
+          </View>
+        ))}
       </View>
     </View>
   );
