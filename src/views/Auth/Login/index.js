@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+
 import {
   Layout,
   Container,
@@ -9,6 +9,7 @@ import {
   ButtonLink,
   Input,
   Both,
+  Title,
 } from '../../../components';
 
 import { useAuth } from '../../../hooks/useAuth';
@@ -28,7 +29,7 @@ const Login = () => {
     <Layout>
       <Container>
         <Both>
-          <Text>Login</Text>
+          <Title title="Login" />
           <Input
             placeholder="Email"
             autoCapitalize="none"

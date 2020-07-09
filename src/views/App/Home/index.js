@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { View } from 'react-native';
+import { orderBy } from 'lodash';
+
 import { months } from '../../../mocks/months';
 
 import firebase from '../../../services/firebase';
@@ -40,7 +41,7 @@ const Home = () => {
             fatWeight: item.val().fatWeight,
             fatPercentage: item.val().fatPercentage,
           };
-          setList((oldArray) => [...oldArray, newList]);
+          setList((oldArray) => orderBy([...oldArray, newList], 'key', 'desc'));
         });
       });
   }, [selectedMounth]);

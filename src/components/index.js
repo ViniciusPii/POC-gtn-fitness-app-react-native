@@ -8,6 +8,7 @@ import Input from './Input';
 import Layout from './Layout';
 import List from './List';
 import ListMounths from './ListMounths';
+import Title from './Title';
 
 export {
   Both,
@@ -20,4 +21,5 @@ export {
   Layout,
   List,
   ListMounths,
+  Title,
 };

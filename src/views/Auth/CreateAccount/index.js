@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
 
 import { useAuth } from '../../../hooks/useAuth';
-import { Layout, Container, Both, Input, Button } from '../../../components';
+import {
+  Layout,
+  Container,
+  Both,
+  Input,
+  Button,
+  Title,
+} from '../../../components';
 
 const CreateAccount = () => {
   const { createAccount } = useAuth();
@@ -19,7 +25,7 @@ const CreateAccount = () => {
     <Layout>
       <Container>
         <Both>
-          <Text>Criar Conta</Text>
+          <Title title="Criar Conta" />
           <Input
             placeholder="Nome"
             value={name}

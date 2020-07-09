@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as S from './styles';
+
 import Card from '../Card';
 
 const List = ({ data, keyExtractor }) => {
@@ -12,6 +14,11 @@ const List = ({ data, keyExtractor }) => {
       renderItem={({ item }) => <Card data={item} />}
     />
   );
+};
+
+List.propTypes = {
+  data: PropTypes.node.isRequired,
+  keyExtractor: PropTypes.string.isRequired,
 };
 
 export default List;

@@ -1,22 +1,33 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-} from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
 
 import firebase from '../../../services/firebase';
+
+import {
+  Layout,
+  Container,
+  Input,
+  Button,
+  Both,
+  Title,
+} from '../../../components';
 
 import { months } from '../../../mocks/months';
 
 const NewWeight = () => {
+  const navigation = useNavigation();
+
   const [weight, setWeight] = useState('');
   const [fatPercentage, setFatPercentage] = useState('');
 
   const handleSubmit = () => {
+    if (weight === '' || fatPercentage === '') {
+      alert('Preencha todos os Campos');
+      return;
+    }
+
     const { uid } = firebase.auth().currentUser;
     const today = new Date();
 
@@ -29,59 +40,33 @@ const NewWeight = () => {
       .set({
         weight,
         fatPercentage,
-        fatWeight: (weight * fatPercentage) / 100,
+        fatWeight: ((weight * fatPercentage) / 100).toFixed(1),
       });
+
+    navigation.navigate('Home');
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1, alignItems: 'center' }}
-      enabled
-      behavior={Platform.OS === 'ios' ? 'padding' : ''}
-    >
-      <View
-        style={{
-          flex: 1,
-          width: '85%',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <View style={{ width: '100%', alignItems: 'center' }}>
-          <Text style={{ marginBottom: 60, fontSize: 20 }}>
-            Cadastre Seus Dados
-          </Text>
-          <TextInput
-            style={{ width: '100%', fontSize: 20, marginBottom: 20 }}
+    <Layout>
+      <Container>
+        <Both>
+          <Title title="Cadastrar novo Peso" />
+          <Input
             placeholder="Peso"
             keyboardType="numeric"
-            value={weight}
+            value={weight.replace(',', '.')}
             onChangeText={(t) => setWeight(t)}
           />
-          <TextInput
-            style={{ width: '100%', fontSize: 20 }}
+          <Input
             placeholder="Percentual de Gordura"
             keyboardType="numeric"
-            value={fatPercentage}
+            value={fatPercentage.replace(',', '.')}
             onChangeText={(t) => setFatPercentage(t)}
           />
-          <TouchableOpacity
-            style={{
-              width: '100%',
-              height: 55,
-              backgroundColor: '#222',
-              marginTop: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 8,
-            }}
-            onPress={handleSubmit}
-          >
-            <Text style={{ fontSize: 20, color: '#fff' }}>Cadastrar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </KeyboardAvoidingView>
+          <Button text="Cadastrar" onPress={handleSubmit} />
+        </Both>
+      </Container>
+    </Layout>
   );
 };
 
