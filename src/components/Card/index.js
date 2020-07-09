@@ -1,9 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
+import firebase from '../../services/firebase';
+import { months } from '../../mocks/months';
+
 import * as S from './styles';
 
 const Card = ({ data }) => {
+  const handleDelete = () => {
+    const { uid } = firebase.auth().currentUser;
+    const today = new Date();
+
+    firebase
+      .database()
+      .ref(today.getFullYear())
+      .child(uid)
+      .child(months[today.getMonth()])
+      .child(data.key)
+      .remove();
+  };
+
   return (
     <S.Card>
       <S.CardContainer>
@@ -16,8 +34,13 @@ const Card = ({ data }) => {
           <S.Text>{data.fatPercentage}</S.Text>
         </S.CardContent>
         <S.CardContent>
-          <S.Title>Peso</S.Title>
+          <S.Title>Gordura kg</S.Title>
           <S.Text>{data.fatWeight}</S.Text>
+        </S.CardContent>
+        <S.CardContent>
+          <S.IconButton onPress={handleDelete}>
+            <Icon name="trash-alt" color="#fff" size={24} />
+          </S.IconButton>
         </S.CardContent>
       </S.CardContainer>
     </S.Card>

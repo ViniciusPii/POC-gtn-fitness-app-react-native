@@ -1,5 +1,6 @@
 import Both from './Both';
 import Button from './Button';
+import ButtonCircle from './ButtonCircle';
 import ButtonLink from './ButtonLink';
 import Card from './Card';
 import Container from './Container';
@@ -10,6 +11,7 @@ import ListMounths from './ListMounths';
 export {
   Both,
   Button,
+  ButtonCircle,
   ButtonLink,
   Card,
   Container,
