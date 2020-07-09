@@ -1,6 +1,8 @@
-import Layout from './Layout';
-import Container from './Container';
+import Both from './Both';
 import Button from './Button';
 import ButtonLink from './ButtonLink';
+import Container from './Container';
+import Input from './Input';
+import Layout from './Layout';
 
-export { Layout, Container, Button, ButtonLink };
+export { Both, Button, ButtonLink, Container, Input, Layout };
