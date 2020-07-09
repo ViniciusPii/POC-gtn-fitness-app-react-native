@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
 import PropTypes from 'prop-types';
