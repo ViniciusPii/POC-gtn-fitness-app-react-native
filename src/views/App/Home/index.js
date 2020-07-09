@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import { View } from 'react-native';
 import { months } from '../../../mocks/months';
 
 import firebase from '../../../services/firebase';
@@ -9,8 +10,9 @@ import {
   ListMounths,
   Container,
   Layout,
-  Card,
   ButtonCircle,
+  List,
+  Both,
 } from '../../../components';
 
 const Home = () => {
@@ -51,9 +53,9 @@ const Home = () => {
       />
       <Layout>
         <Container w="95%">
-          {list.map((value) => (
-            <Card data={value} />
-          ))}
+          <Both>
+            <List data={list} keyExtractor={list.key} />
+          </Both>
           <ButtonCircle onPress={() => navigation.navigate('NewWeight')} />
         </Container>
       </Layout>

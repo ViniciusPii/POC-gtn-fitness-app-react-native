@@ -6,6 +6,7 @@ import Card from './Card';
 import Container from './Container';
 import Input from './Input';
 import Layout from './Layout';
+import List from './List';
 import ListMounths from './ListMounths';
 
 export {
@@ -17,5 +18,6 @@ export {
   Container,
   Input,
   Layout,
+  List,
   ListMounths,
 };
