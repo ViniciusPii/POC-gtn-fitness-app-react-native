@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { TouchableOpacity, Text } from 'react-native';
@@ -24,7 +26,7 @@ const AppRoutes = () => {
           headerTitleAlign: 'center',
           headerRight: () => (
             <TouchableOpacity style={{ marginRight: 20 }} onPress={logout}>
-              <Text>Sair</Text>
+              <Icon name="sign-out-alt" size={20} />
             </TouchableOpacity>
           ),
         }}
