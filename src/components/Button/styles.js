@@ -7,10 +7,10 @@ export const Button = styled.TouchableOpacity`
   justify-content: center;
   border-radius: 8px;
   background-color: #222;
-  margin-top: 30;
+  margin-top: 30px;
 `;
 
 export const TextButton = styled.Text`
-  font-size: 18;
+  font-size: 18px;
   color: #fff;
 `;
