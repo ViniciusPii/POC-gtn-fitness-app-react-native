@@ -6,7 +6,7 @@ export const Card = styled.View`
   justify-content: center;
   margin: 5px 0;
   border-radius: 8px;
-  background-color: #222;
+  background-color: ${({ bgColor }) => bgColor};
 `;
 
 export const CardContainer = styled.View`

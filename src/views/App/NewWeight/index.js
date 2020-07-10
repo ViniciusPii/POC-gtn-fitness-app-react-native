@@ -43,6 +43,17 @@ const NewWeight = () => {
         fatWeight: ((weight * fatPercentage) / 100).toFixed(1),
       });
 
+    firebase
+      .database()
+      .ref('weights')
+      .child(uid)
+      .push()
+      .set({
+        weight,
+        fatPercentage,
+        fatWeight: ((weight * fatPercentage) / 100).toFixed(1),
+      });
+
     navigation.navigate('Home');
   };
 

@@ -5,13 +5,14 @@ import * as S from './styles';
 
 import Card from '../Card';
 
-const List = ({ data, keyExtractor }) => {
+const List = ({ data, keyExtractor, weight }) => {
   return (
     <S.List
       data={data}
+      weight={weight}
       keyExtractor={keyExtractor}
       showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => <Card data={item} />}
+      renderItem={({ item }) => <Card data={item} weight={weight} />}
     />
   );
 };

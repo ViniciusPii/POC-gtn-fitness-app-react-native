@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -8,7 +8,20 @@ import { months } from '../../mocks/months';
 
 import * as S from './styles';
 
-const Card = ({ data }) => {
+const Card = ({ data, weight }) => {
+  const [bgColor, setBgColor] = useState('#222');
+
+  useEffect(() => {
+    if (weight[weight.length - 1] > weight[weight.length - 2]) {
+      setBgColor('#e53535');
+    }
+    if (weight[weight.length - 1] < weight[weight.length - 2]) {
+      setBgColor('#0f8c1f');
+    } else {
+      setBgColor('#222');
+    }
+  }, []);
+
   const handleDelete = () => {
     const { uid } = firebase.auth().currentUser;
     const today = new Date();
@@ -23,7 +36,7 @@ const Card = ({ data }) => {
   };
 
   return (
-    <S.Card>
+    <S.Card bgColor={bgColor}>
       <S.CardContainer>
         <S.CardContent>
           <S.Title>Peso</S.Title>
@@ -49,6 +62,7 @@ const Card = ({ data }) => {
 
 Card.propTypes = {
   data: PropTypes.node.isRequired,
+  weight: PropTypes.node.isRequired,
 };
 
 export default Card;

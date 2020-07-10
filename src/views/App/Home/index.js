@@ -13,7 +13,6 @@ import {
   Layout,
   ButtonCircle,
   List,
-  Both,
 } from '../../../components';
 
 const Home = () => {
@@ -23,6 +22,7 @@ const Home = () => {
 
   const [selectedMounth, setSelectedMounth] = useState(today.getMonth());
   const [list, setList] = useState([]);
+  const [listWeight, setListWeight] = useState([]);
   const { uid } = firebase.auth().currentUser;
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Home = () => {
       .child(months[selectedMounth])
       .on('value', (snap) => {
         setList([]);
-
+        setListWeight([]);
         snap.forEach((item) => {
           const newList = {
             key: item.key,
@@ -42,6 +42,7 @@ const Home = () => {
             fatPercentage: item.val().fatPercentage,
           };
           setList((oldArray) => orderBy([...oldArray, newList], 'key', 'desc'));
+          setListWeight((oldArray) => [...oldArray, newList.weight]);
         });
       });
   }, [selectedMounth]);
@@ -54,9 +55,7 @@ const Home = () => {
       />
       <Layout>
         <Container w="95%">
-          <Both>
-            <List data={list} keyExtractor={list.key} />
-          </Both>
+          <List data={list} keyExtractor={list.key} weight={listWeight} />
           <ButtonCircle onPress={() => navigation.navigate('NewWeight')} />
         </Container>
       </Layout>
