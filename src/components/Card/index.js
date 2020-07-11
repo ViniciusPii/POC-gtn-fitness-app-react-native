@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -8,42 +8,7 @@ import { months } from '../../mocks/months';
 
 import * as S from './styles';
 
-const Card = ({ data, weight }) => {
-  const [bgColor, setBgColor] = useState('#ccc');
-
-  const [oldWeight, setOldweight] = useState();
-  const [currentweight, setCurrentWeight] = useState();
-
-  const changeColor = () => {
-    setOldweight(weight[weight.length - 2]);
-    setCurrentWeight(weight[weight.length - 1]);
-
-    if (currentweight > oldWeight) {
-      setBgColor('#e53535');
-    } else if (currentweight < oldWeight) {
-      setBgColor('#0f8c1f');
-    } else if (currentweight === oldWeight) {
-      setBgColor('#ffd000');
-    } else {
-      setBgColor('#ccc');
-    }
-
-    return bgColor;
-  };
-
-  // weight.forEach((value) => {
-  //   if (value[value.length - 1] > value[value.length - 2]) {
-  //     setBgColor('#e53535');
-  //   }
-  //   if (value[value.length - 1] < value[value.length - 2]) {
-  //     setBgColor('#0f8c1f');
-  //   }
-  //   if (value[value.length - 1] === value[value.length - 2]) {
-  //     setBgColor('#ffd000');
-  //   }
-  //   setBgColor('#ccc');
-  // }, []);
-
+const Card = ({ data }) => {
   const handleDelete = () => {
     const { uid } = firebase.auth().currentUser;
     const today = new Date();
@@ -55,14 +20,13 @@ const Card = ({ data, weight }) => {
       .child(months[today.getMonth()])
       .child(data.key)
       .remove();
+
+    firebase.database().ref('weights').child(uid).child(data.key).remove();
   };
 
   return (
     <S.Card>
       <S.CardContainer>
-        <S.CardContent>
-          <S.CardInfo bgColor={changeColor} />
-        </S.CardContent>
         <S.CardContent>
           <S.Title>Peso</S.Title>
           <S.Text>{data.weight}</S.Text>
@@ -87,7 +51,6 @@ const Card = ({ data, weight }) => {
 
 Card.propTypes = {
   data: PropTypes.node.isRequired,
-  weight: PropTypes.node.isRequired,
 };
 
 export default Card;

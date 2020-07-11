@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { orderBy } from 'lodash';
 
+import { Text } from 'react-native';
 import { months } from '../../../mocks/months';
 
 import firebase from '../../../services/firebase';
@@ -13,6 +14,7 @@ import {
   Layout,
   ButtonCircle,
   List,
+  WeightInfo,
 } from '../../../components';
 
 const Home = () => {
@@ -23,6 +25,7 @@ const Home = () => {
   const [selectedMounth, setSelectedMounth] = useState(today.getMonth());
   const [list, setList] = useState([]);
   const [listWeight, setListWeight] = useState([]);
+
   const { uid } = firebase.auth().currentUser;
 
   useEffect(() => {
@@ -55,7 +58,14 @@ const Home = () => {
       />
       <Layout>
         <Container w="95%">
-          <List data={list} keyExtractor={list.key} weight={listWeight} />
+          {list.length > 0 ? (
+            <WeightInfo weight={listWeight} />
+          ) : (
+            <Text style={{ marginTop: 120, fontSize: 18 }}>
+              {`Nenhum Registro em ${months[selectedMounth]}`}
+            </Text>
+          )}
+          <List data={list} keyExtractor={list.key} />
           <ButtonCircle onPress={() => navigation.navigate('NewWeight')} />
         </Container>
       </Layout>

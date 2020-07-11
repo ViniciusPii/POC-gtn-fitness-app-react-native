@@ -5,21 +5,19 @@ import * as S from './styles';
 
 import Card from '../Card';
 
-const List = ({ data, keyExtractor, weight }) => {
+const List = ({ data, keyExtractor }) => {
   return (
     <S.List
       data={data}
-      weight={weight}
       keyExtractor={keyExtractor}
       showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => <Card data={item} weight={weight} />}
+      renderItem={({ item }) => <Card data={item} />}
     />
   );
 };
 
 List.propTypes = {
   data: PropTypes.node.isRequired,
-  weight: PropTypes.node.isRequired,
   keyExtractor: PropTypes.string.isRequired,
 };
 

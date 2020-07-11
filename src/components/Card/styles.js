@@ -19,13 +19,6 @@ export const CardContent = styled.View`
   justify-content: center;
 `;
 
-export const CardInfo = styled.View`
-  width: 20;
-  height: 20;
-  border-radius: 5px;
-  background-color: ${({ bgColor }) => bgColor};
-`;
-
 export const Title = styled.Text`
   color: #fff;
 `;

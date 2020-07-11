@@ -9,6 +9,7 @@ import Layout from './Layout';
 import List from './List';
 import ListMounths from './ListMounths';
 import Title from './Title';
+import WeightInfo from './WeightInfo';
 
 export {
   Both,
@@ -22,4 +23,5 @@ export {
   List,
   ListMounths,
   Title,
+  WeightInfo,
 };

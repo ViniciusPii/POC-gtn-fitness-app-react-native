@@ -23,8 +23,13 @@ const NewWeight = () => {
   const [fatPercentage, setFatPercentage] = useState('');
 
   const handleSubmit = () => {
-    if (weight === '' || fatPercentage === '') {
-      alert('Preencha todos os Campos');
+    if (
+      weight === '' ||
+      fatPercentage === '' ||
+      Number.isNaN(Number(weight)) ||
+      Number.isNaN(Number(fatPercentage))
+    ) {
+      alert('Preencha todos os Campos Corretamente');
       return;
     }
 
@@ -36,17 +41,6 @@ const NewWeight = () => {
       .ref(today.getFullYear())
       .child(uid)
       .child(months[today.getMonth()])
-      .push()
-      .set({
-        weight,
-        fatPercentage,
-        fatWeight: ((weight * fatPercentage) / 100).toFixed(1),
-      });
-
-    firebase
-      .database()
-      .ref('weights')
-      .child(uid)
       .push()
       .set({
         weight,
