@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -9,18 +9,40 @@ import { months } from '../../mocks/months';
 import * as S from './styles';
 
 const Card = ({ data, weight }) => {
-  const [bgColor, setBgColor] = useState('#222');
+  const [bgColor, setBgColor] = useState('#ccc');
 
-  useEffect(() => {
-    if (weight[weight.length - 1] > weight[weight.length - 2]) {
+  const [oldWeight, setOldweight] = useState();
+  const [currentweight, setCurrentWeight] = useState();
+
+  const changeColor = () => {
+    setOldweight(weight[weight.length - 2]);
+    setCurrentWeight(weight[weight.length - 1]);
+
+    if (currentweight > oldWeight) {
       setBgColor('#e53535');
-    }
-    if (weight[weight.length - 1] < weight[weight.length - 2]) {
+    } else if (currentweight < oldWeight) {
       setBgColor('#0f8c1f');
+    } else if (currentweight === oldWeight) {
+      setBgColor('#ffd000');
     } else {
-      setBgColor('#222');
+      setBgColor('#ccc');
     }
-  }, []);
+
+    return bgColor;
+  };
+
+  // weight.forEach((value) => {
+  //   if (value[value.length - 1] > value[value.length - 2]) {
+  //     setBgColor('#e53535');
+  //   }
+  //   if (value[value.length - 1] < value[value.length - 2]) {
+  //     setBgColor('#0f8c1f');
+  //   }
+  //   if (value[value.length - 1] === value[value.length - 2]) {
+  //     setBgColor('#ffd000');
+  //   }
+  //   setBgColor('#ccc');
+  // }, []);
 
   const handleDelete = () => {
     const { uid } = firebase.auth().currentUser;
@@ -36,8 +58,11 @@ const Card = ({ data, weight }) => {
   };
 
   return (
-    <S.Card bgColor={bgColor}>
+    <S.Card>
       <S.CardContainer>
+        <S.CardContent>
+          <S.CardInfo bgColor={changeColor} />
+        </S.CardContent>
         <S.CardContent>
           <S.Title>Peso</S.Title>
           <S.Text>{data.weight}</S.Text>

@@ -19,6 +19,7 @@ const List = ({ data, keyExtractor, weight }) => {
 
 List.propTypes = {
   data: PropTypes.node.isRequired,
+  weight: PropTypes.node.isRequired,
   keyExtractor: PropTypes.string.isRequired,
 };
 

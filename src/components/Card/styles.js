@@ -6,7 +6,7 @@ export const Card = styled.View`
   justify-content: center;
   margin: 5px 0;
   border-radius: 8px;
-  background-color: ${({ bgColor }) => bgColor};
+  background-color: #222;
 `;
 
 export const CardContainer = styled.View`
@@ -17,6 +17,13 @@ export const CardContainer = styled.View`
 export const CardContent = styled.View`
   align-items: center;
   justify-content: center;
+`;
+
+export const CardInfo = styled.View`
+  width: 20;
+  height: 20;
+  border-radius: 5px;
+  background-color: ${({ bgColor }) => bgColor};
 `;
 
 export const Title = styled.Text`
