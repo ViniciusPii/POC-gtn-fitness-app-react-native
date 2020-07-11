@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+
+import { iconInfo } from '../../mocks';
 
 import * as S from './styles';
 
-const WeightInfo = ({ weight }) => {
-  const [bgColor, setBgColor] = useState('#222');
-  const [nameIcon, setNameIcon] = useState();
+const WeightInfo = ({ fatPercentage, weight }) => {
+  const currentFatPercentage = fatPercentage[fatPercentage.length - 1];
+  const oldFatPercentage = fatPercentage[fatPercentage.length - 2];
 
-  useEffect(() => {
-    if (weight[weight.length - 1] > weight[weight.length - 2]) {
-      setBgColor('#e53535');
-      setNameIcon('arrow-circle-up');
-    } else if (weight[weight.length - 1] < weight[weight.length - 2]) {
-      setBgColor('#0f8c1f');
-      setNameIcon('arrow-circle-down');
-    } else if (weight[weight.length - 1] === weight[weight.length - 2]) {
-      setBgColor('#ffd000');
-      setNameIcon('minus-circle');
-    } else {
-      setNameIcon();
+  const changeWeightInfo = () => {
+    if (currentFatPercentage > oldFatPercentage) {
+      return 'up';
     }
-  });
+    if (currentFatPercentage < oldFatPercentage) {
+      return 'down';
+    }
+    if (currentFatPercentage === oldFatPercentage) {
+      return 'draw';
+    }
+    return 'init';
+  };
 
   return (
     <S.Container>
-      {weight.length > 0 && (
+      {fatPercentage.length > 0 && (
         <>
           <S.WeightDesc>Peso Atual</S.WeightDesc>
           <S.WeightContent>
             <S.Weight>{weight[weight.length - 1]}</S.Weight>
             <S.WeightKg>kg</S.WeightKg>
-            <S.IconInfo name={nameIcon} color={bgColor} size={25} />
+            <S.IconInfo
+              name={iconInfo[changeWeightInfo()].name}
+              color={iconInfo[changeWeightInfo()].color}
+              size={25}
+            />
           </S.WeightContent>
         </>
       )}
@@ -39,6 +43,7 @@ const WeightInfo = ({ weight }) => {
 };
 
 WeightInfo.propTypes = {
+  fatPercentage: PropTypes.node.isRequired,
   weight: PropTypes.node.isRequired,
 };
 

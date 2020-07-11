@@ -24,6 +24,7 @@ const Home = () => {
 
   const [selectedMounth, setSelectedMounth] = useState(today.getMonth());
   const [list, setList] = useState([]);
+  const [listFatPercentage, setListFatPercentage] = useState([]);
   const [listWeight, setListWeight] = useState([]);
 
   const { uid } = firebase.auth().currentUser;
@@ -36,6 +37,7 @@ const Home = () => {
       .child(months[selectedMounth])
       .on('value', (snap) => {
         setList([]);
+        setListFatPercentage([]);
         setListWeight([]);
         snap.forEach((item) => {
           const newList = {
@@ -44,7 +46,12 @@ const Home = () => {
             fatWeight: item.val().fatWeight,
             fatPercentage: item.val().fatPercentage,
           };
+
           setList((oldArray) => orderBy([...oldArray, newList], 'key', 'desc'));
+          setListFatPercentage((oldArray) => [
+            ...oldArray,
+            newList.fatPercentage,
+          ]);
           setListWeight((oldArray) => [...oldArray, newList.weight]);
         });
       });
@@ -59,7 +66,7 @@ const Home = () => {
       <Layout>
         <Container w="95%">
           {list.length > 0 ? (
-            <WeightInfo weight={listWeight} />
+            <WeightInfo fatPercentage={listFatPercentage} weight={listWeight} />
           ) : (
             <Text style={{ marginTop: 120, fontSize: 18 }}>
               {`Nenhum Registro em ${months[selectedMounth]}`}

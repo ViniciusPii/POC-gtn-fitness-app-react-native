@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import * as S from './styles';
 
-import { months } from '../../mocks/months';
+import { months } from '../../mocks';
 
 const ListMounths = ({ selectedMounth, setSelectedMounth }) => {
   const screenWidth = Math.round(Dimensions.get('window').width);
