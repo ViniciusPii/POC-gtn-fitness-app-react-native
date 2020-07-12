@@ -8,7 +8,7 @@ import { months } from '../../mocks/months';
 
 import * as S from './styles';
 
-const Card = ({ data }) => {
+const Card = ({ data, selectedMonth }) => {
   const handleDelete = () => {
     const { uid } = firebase.auth().currentUser;
     const today = new Date();
@@ -17,7 +17,7 @@ const Card = ({ data }) => {
       .database()
       .ref(today.getFullYear())
       .child(uid)
-      .child(months[today.getMonth()])
+      .child(months[selectedMonth])
       .child(data.key)
       .remove();
 
@@ -51,6 +51,7 @@ const Card = ({ data }) => {
 
 Card.propTypes = {
   data: PropTypes.node.isRequired,
+  selectedMonth: PropTypes.number.isRequired,
 };
 
 export default Card;

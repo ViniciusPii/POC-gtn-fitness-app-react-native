@@ -1,5 +1,6 @@
 /* eslint-disable no-alert */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,13 +17,19 @@ import {
 
 import { months } from '../../../mocks/months';
 
-const NewWeight = () => {
+const NewWeight = ({ route }) => {
   const navigation = useNavigation();
+
+  const today = new Date();
+
+  const { month } = route.params;
 
   const [weight, setWeight] = useState('');
   const [fatPercentage, setFatPercentage] = useState('');
 
   const handleSubmit = () => {
+    const { uid } = firebase.auth().currentUser;
+
     if (
       weight === '' ||
       fatPercentage === '' ||
@@ -33,14 +40,17 @@ const NewWeight = () => {
       return;
     }
 
-    const { uid } = firebase.auth().currentUser;
-    const today = new Date();
+    if (month > today.getMonth()) {
+      alert('Uau! Você está no futuro?!');
+      navigation.navigate('Home');
+      return;
+    }
 
     firebase
       .database()
       .ref(today.getFullYear())
       .child(uid)
-      .child(months[today.getMonth()])
+      .child(months[month])
       .push()
       .set({
         weight,
@@ -73,6 +83,10 @@ const NewWeight = () => {
       </Container>
     </Layout>
   );
+};
+
+NewWeight.propTypes = {
+  route: PropTypes.node.isRequired,
 };
 
 export default NewWeight;

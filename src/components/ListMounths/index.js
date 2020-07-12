@@ -6,7 +6,7 @@ import * as S from './styles';
 
 import { months } from '../../mocks';
 
-const ListMounths = ({ selectedMounth, setSelectedMounth }) => {
+const ListMounths = ({ selectedMonth, setSelectedMonth }) => {
   const screenWidth = Math.round(Dimensions.get('window').width);
   const thirdW = screenWidth / 3;
   const MonthRef = useRef();
@@ -14,7 +14,7 @@ const ListMounths = ({ selectedMounth, setSelectedMounth }) => {
   const handleScrollEnd = (e) => {
     const posX = e.nativeEvent.contentOffset.x;
     const targetMonth = Math.round(posX / thirdW);
-    setSelectedMounth(targetMonth);
+    setSelectedMonth(targetMonth);
   };
 
   const scrollToMonth = (m) => {
@@ -24,9 +24,9 @@ const ListMounths = ({ selectedMounth, setSelectedMounth }) => {
 
   useEffect(() => {
     setTimeout(() => {
-      scrollToMonth(selectedMounth);
+      scrollToMonth(selectedMonth);
     }, 1);
-  }, [selectedMounth]);
+  }, [selectedMonth]);
 
   return (
     <S.Container>
@@ -41,9 +41,9 @@ const ListMounths = ({ selectedMounth, setSelectedMounth }) => {
       >
         {months.map((m, k) => (
           <S.Container>
-            <S.Button key={m} onPress={() => setSelectedMounth(k)} w={thirdW}>
+            <S.Button key={m} onPress={() => setSelectedMonth(k)} w={thirdW}>
               <S.ButtonContainer
-                bgColor={k === selectedMounth ? '#0065ff' : '#222'}
+                bgColor={k === selectedMonth ? '#0065ff' : '#222'}
               >
                 <S.ButtonText>{m}</S.ButtonText>
               </S.ButtonContainer>
@@ -56,8 +56,8 @@ const ListMounths = ({ selectedMounth, setSelectedMounth }) => {
 };
 
 ListMounths.propTypes = {
-  selectedMounth: PropTypes.number.isRequired,
-  setSelectedMounth: PropTypes.func.isRequired,
+  selectedMonth: PropTypes.number.isRequired,
+  setSelectedMonth: PropTypes.func.isRequired,
 };
 
 export default ListMounths;

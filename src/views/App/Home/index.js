@@ -22,7 +22,7 @@ const Home = () => {
 
   const navigation = useNavigation();
 
-  const [selectedMounth, setSelectedMounth] = useState(today.getMonth());
+  const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
   const [list, setList] = useState([]);
   const [listFatPercentage, setListFatPercentage] = useState([]);
   const [listWeight, setListWeight] = useState([]);
@@ -34,7 +34,7 @@ const Home = () => {
       .database()
       .ref(today.getFullYear())
       .child(uid)
-      .child(months[selectedMounth])
+      .child(months[selectedMonth])
       .on('value', (snap) => {
         setList([]);
         setListFatPercentage([]);
@@ -55,13 +55,13 @@ const Home = () => {
           setListWeight((oldArray) => [...oldArray, newList.weight]);
         });
       });
-  }, [selectedMounth]);
+  }, [selectedMonth]);
 
   return (
     <>
       <ListMounths
-        selectedMounth={selectedMounth}
-        setSelectedMounth={setSelectedMounth}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
       />
       <Layout>
         <Container w="95%">
@@ -69,11 +69,19 @@ const Home = () => {
             <WeightInfo fatPercentage={listFatPercentage} weight={listWeight} />
           ) : (
             <Text style={{ marginTop: 120, fontSize: 18 }}>
-              {`Nenhum Registro em ${months[selectedMounth]}`}
+              {`Nenhum Registro em ${months[selectedMonth]}`}
             </Text>
           )}
-          <List data={list} keyExtractor={list.key} />
-          <ButtonCircle onPress={() => navigation.navigate('NewWeight')} />
+          <List
+            data={list}
+            keyExtractor={list.key}
+            selectedMonth={selectedMonth}
+          />
+          <ButtonCircle
+            onPress={() =>
+              navigation.navigate('NewWeight', { month: selectedMonth })
+            }
+          />
         </Container>
       </Layout>
     </>

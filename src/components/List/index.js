@@ -5,13 +5,15 @@ import * as S from './styles';
 
 import Card from '../Card';
 
-const List = ({ data, keyExtractor }) => {
+const List = ({ data, keyExtractor, selectedMonth }) => {
   return (
     <S.List
       data={data}
       keyExtractor={keyExtractor}
       showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => <Card data={item} />}
+      renderItem={({ item }) => (
+        <Card data={item} selectedMonth={selectedMonth} />
+      )}
     />
   );
 };
@@ -19,6 +21,7 @@ const List = ({ data, keyExtractor }) => {
 List.propTypes = {
   data: PropTypes.node.isRequired,
   keyExtractor: PropTypes.string.isRequired,
+  selectedMonth: PropTypes.number.isRequired,
 };
 
 export default List;
