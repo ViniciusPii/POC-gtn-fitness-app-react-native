@@ -19,6 +19,7 @@ const AuthRoutes = () => {
         name="CreateAccount"
         component={CreateAccount}
         options={{
+          title: 'Crie já sua Conta!',
           headerBackTitleVisible: false,
           headerTintColor: '#222',
           headerTitleAlign: 'center',

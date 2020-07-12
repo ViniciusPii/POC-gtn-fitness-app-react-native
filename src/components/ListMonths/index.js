@@ -6,7 +6,7 @@ import * as S from './styles';
 
 import { months } from '../../mocks';
 
-const ListMounths = ({ selectedMonth, setSelectedMonth }) => {
+const ListMonths = ({ selectedMonth, setSelectedMonth }) => {
   const screenWidth = Math.round(Dimensions.get('window').width);
   const thirdW = screenWidth / 3;
   const MonthRef = useRef();
@@ -55,9 +55,9 @@ const ListMounths = ({ selectedMonth, setSelectedMonth }) => {
   );
 };
 
-ListMounths.propTypes = {
+ListMonths.propTypes = {
   selectedMonth: PropTypes.number.isRequired,
   setSelectedMonth: PropTypes.func.isRequired,
 };
 
-export default ListMounths;
+export default ListMonths;

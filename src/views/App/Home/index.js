@@ -9,7 +9,7 @@ import { months } from '../../../mocks/months';
 import firebase from '../../../services/firebase';
 
 import {
-  ListMounths,
+  ListMonths,
   Container,
   Layout,
   ButtonCircle,
@@ -59,7 +59,7 @@ const Home = () => {
 
   return (
     <>
-      <ListMounths
+      <ListMonths
         selectedMonth={selectedMonth}
         setSelectedMonth={setSelectedMonth}
       />

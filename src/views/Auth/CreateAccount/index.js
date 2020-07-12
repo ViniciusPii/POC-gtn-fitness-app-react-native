@@ -33,6 +33,7 @@ const CreateAccount = () => {
           />
           <Input
             placeholder="Email"
+            autoCapitalize="none"
             value={email}
             onChangeText={(t) => setEmail(t)}
           />

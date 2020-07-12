@@ -7,7 +7,7 @@ import Container from './Container';
 import Input from './Input';
 import Layout from './Layout';
 import List from './List';
-import ListMounths from './ListMounths';
+import ListMonths from './ListMonths';
 import Title from './Title';
 import WeightInfo from './WeightInfo';
 
@@ -21,7 +21,7 @@ export {
   Input,
   Layout,
   List,
-  ListMounths,
+  ListMonths,
   Title,
   WeightInfo,
 };

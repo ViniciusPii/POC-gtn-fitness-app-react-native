@@ -24,6 +24,7 @@ const AppRoutes = () => {
           headerBackTitleVisible: false,
           headerTintColor: '#222',
           headerTitleAlign: 'center',
+          title: 'Home',
           headerRight: () => (
             <TouchableOpacity style={{ marginRight: 20 }} onPress={logout}>
               <Icon name="sign-out-alt" size={20} color="#222" />
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         name="NewWeight"
         component={NewWeight}
         options={{
+          title: 'Cadastre suas Medidas',
           headerBackTitleVisible: false,
           headerTintColor: '#222',
           headerTitleAlign: 'center',
