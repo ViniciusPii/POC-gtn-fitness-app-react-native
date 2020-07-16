@@ -1,3 +1,4 @@
+import AppProvider from './AppProvider';
 import Both from './Both';
 import Button from './Button';
 import ButtonCircle from './ButtonCircle';
@@ -12,6 +13,7 @@ import Title from './Title';
 import WeightInfo from './WeightInfo';
 
 export {
+  AppProvider,
   Both,
   Button,
   ButtonCircle,

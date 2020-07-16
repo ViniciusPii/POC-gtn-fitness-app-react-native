@@ -2,18 +2,19 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
+import colors from './themes/colors';
+import { AppProvider } from './components';
 import Routes from './routes';
-import AuthProvider from './hooks/useAuth';
 
 console.disableYellowBox = true;
 
 const App = () => {
   return (
-    <AuthProvider>
+    <AppProvider theme={colors}>
       <NavigationContainer>
         <Routes />
       </NavigationContainer>
-    </AuthProvider>
+    </AppProvider>
   );
 };
 
