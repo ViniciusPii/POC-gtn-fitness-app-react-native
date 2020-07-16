@@ -8,6 +8,8 @@ import * as S from './styles';
 const WeightInfo = ({ fatPercentage, weight }) => {
   const currentFatPercentage = fatPercentage[fatPercentage.length - 1];
   const oldFatPercentage = fatPercentage[fatPercentage.length - 2];
+  const currentWeight = weight[weight.length - 1];
+  const oldWeight = weight[weight.length - 2];
 
   const changeWeightInfo = () => {
     if (currentFatPercentage > oldFatPercentage) {
@@ -17,6 +19,12 @@ const WeightInfo = ({ fatPercentage, weight }) => {
       return 'down';
     }
     if (currentFatPercentage === oldFatPercentage) {
+      if (currentWeight > oldWeight) {
+        return 'up';
+      }
+      if (currentWeight < oldWeight) {
+        return 'down';
+      }
       return 'draw';
     }
     return 'init';
